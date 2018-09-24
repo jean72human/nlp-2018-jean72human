@@ -1,4 +1,6 @@
 ### NAIVE BAYES CLASS
+import sys
+
 from nltk import word_tokenize
 import numpy as np
 import re
@@ -207,10 +209,16 @@ if __name__ == '__main__':
         print ("Loading the model")
         classifier.load("model.npy")
     except:
+        print ("Couldn't load. Training. Make sure training files are in the sentiment_labelled_sentences folder")
         classifier.train(["./sentiment_labelled_sentences/amazon_cells_labelled.txt",
                           "./sentiment_labelled_sentences/imdb_labelled.txt",
                           "./sentiment_labelled_sentences/yelp_labelled.txt"],
                           test=True,
                           split_ratio=0.2)
-        name = input("name of the test_file:")
+    name = sys.argv[0]
+    print ("Testing: ",name)
+    try:
         classifier.test_file(name)
+    except:
+        print ("An error occured. Couldn't read the file")
+        
