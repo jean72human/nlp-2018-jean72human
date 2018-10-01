@@ -1,6 +1,10 @@
-### NAIVE BAYES CLASS
-import sys
 
+# coding: utf-8
+
+# In[1]:
+
+
+### NAIVE BAYES CLASS
 from nltk import word_tokenize
 import numpy as np
 import re
@@ -137,7 +141,7 @@ class naive_classifier:
                 print(line,self.predict(line))
                 labels.append(self.predict(line))
         
-        with open('output.txt', 'w') as f:
+        with open('results_file.txt', 'w') as f:
             for label in labels:
                 f.write(str(label)+"\n")
                 
@@ -202,23 +206,26 @@ class naive_classifier:
         self.vocabulary = loaded.item().get("vocabulary")
             
             
-            
+
+
 if __name__ == '__main__':
     classifier = naive_classifier()
     try:
-        print ("Loading the model")
+        print("Loading the model")
         classifier.load("model.npy")
     except:
-        print ("Couldn't load. Training. Make sure training files are in the sentiment_labelled_sentences folder")
+        print ("Couldn't load the model. Training")
+
         classifier.train(["./sentiment_labelled_sentences/amazon_cells_labelled.txt",
-                          "./sentiment_labelled_sentences/imdb_labelled.txt",
-                          "./sentiment_labelled_sentences/yelp_labelled.txt"],
-                          test=True,
-                          split_ratio=0.2)
-    name = sys.argv[0]
-    print ("Testing: ",name)
+                  "./sentiment_labelled_sentences/imdb_labelled.txt",
+                  "./sentiment_labelled_sentences/yelp_labelled.txt"],
+                 test=True,
+                 split_ratio=0.2)
+        
+    name = input("Enter name of the file to test: ")
+    print("Testing: ",name)
     try:
         classifier.test_file(name)
     except:
         print ("An error occured. Couldn't read the file")
-        
+
