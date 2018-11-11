@@ -11,7 +11,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_auc_score
 import nltk
-from nltk import word_tokenize
 import numpy as np
 import pandas as pd
 import re
